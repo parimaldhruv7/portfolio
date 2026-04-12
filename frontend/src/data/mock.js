@@ -130,18 +130,50 @@ export const projectsData = {
 };
 
 export const skills = [
-  { name: "React.js", category: "Frontend" },
-  { name: "Next.js", category: "Frontend" },
-  { name: "TypeScript", category: "Frontend" },
-  { name: "Tailwind CSS", category: "Frontend" },
-  { name: "Node.js", category: "Backend" },
-  { name: "Express.js", category: "Backend" },
-  { name: "MongoDB", category: "Database" },
-  { name: "PostgreSQL", category: "Database" },
-  { name: "Redis", category: "Database" },
-  { name: "AWS", category: "DevOps" },
-  { name: "Docker", category: "DevOps" },
-  { name: "GraphQL", category: "API" }
+  // Frontend
+  { name: "React.js", category: "Frontend", level: "Expert" },
+  { name: "Next.js", category: "Frontend", level: "Expert" },
+  { name: "TypeScript", category: "Frontend", level: "Advanced" },
+  { name: "JavaScript (ES6+)", category: "Frontend", level: "Expert" },
+  { name: "Tailwind CSS", category: "Frontend", level: "Expert" },
+  { name: "Redux/Context API", category: "Frontend", level: "Advanced" },
+  
+  // Backend
+  { name: "Node.js", category: "Backend", level: "Expert" },
+  { name: "Express.js", category: "Backend", level: "Expert" },
+  { name: "Python", category: "Backend", level: "Advanced" },
+  { name: "GraphQL", category: "Backend", level: "Advanced" },
+  { name: "REST APIs", category: "Backend", level: "Expert" },
+  
+  // Real-time Technologies
+  { name: "Socket.io", category: "Real-time", level: "Expert" },
+  { name: "WebSockets", category: "Real-time", level: "Expert" },
+  { name: "WebRTC", category: "Real-time", level: "Advanced" },
+  { name: "Real-time Data Streaming", category: "Real-time", level: "Expert" },
+  
+  // AI/ML
+  { name: "LangChain", category: "AI/ML", level: "Advanced" },
+  { name: "OpenAI Integration", category: "AI/ML", level: "Advanced" },
+  { name: "AI Chatbots", category: "AI/ML", level: "Advanced" },
+  { name: "Machine Learning", category: "AI/ML", level: "Intermediate" },
+  
+  // Database
+  { name: "MongoDB", category: "Database", level: "Expert" },
+  { name: "PostgreSQL", category: "Database", level: "Advanced" },
+  { name: "Redis", category: "Database", level: "Advanced" },
+  { name: "MySQL", category: "Database", level: "Advanced" },
+  
+  // DevOps & Cloud
+  { name: "AWS", category: "DevOps", level: "Advanced" },
+  { name: "Docker", category: "DevOps", level: "Advanced" },
+  { name: "CI/CD", category: "DevOps", level: "Intermediate" },
+  { name: "Nginx", category: "DevOps", level: "Intermediate" },
+  
+  // Other
+  { name: "Git/GitHub", category: "Tools", level: "Expert" },
+  { name: "Agile/Scrum", category: "Tools", level: "Advanced" },
+  { name: "Video/Audio Calls", category: "Specialty", level: "Advanced" },
+  { name: "Payment Integration", category: "Specialty", level: "Expert" }
 ];
 
 export const personalInfo = {
@@ -151,5 +183,5 @@ export const personalInfo = {
   email: "parimaldhruv7@gmail.com",
   phone: "+91 7985724785",
   location: "Noida, India",
-  resumeUrl: "https://customer-assets.emergentagent.com/job_dev-parimal/artifacts/cp9kli1x_parimalsrivastav_24Feb_86.pdf"
+  resumeUrl: "https://customer-assets.emergentagent.com/job_dev-parimal/artifacts/mir8nvbg_parimalsrivastav_24Feb_86.pdf"
 };
