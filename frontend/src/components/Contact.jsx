@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { Mail, Send, User, MessageSquare, CheckCircle } from 'lucide-react';
+import { Mail, Send, User, MessageSquare, CheckCircle, AlertCircle } from 'lucide-react';
 import { personalInfo } from '../data/mock';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +14,7 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -21,18 +26,29 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError('');
 
-    // Mock submission - will be replaced with actual API call
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
+    try {
+      const response = await axios.post(`${API}/contact`, formData);
+      
+      if (response.data.success) {
+        setSubmitSuccess(true);
+        setFormData({ name: '', email: '', message: '' });
+        
+        // Reset success message after 5 seconds
+        setTimeout(() => {
+          setSubmitSuccess(false);
+        }, 5000);
+      }
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      setSubmitError(
+        error.response?.data?.detail || 
+        'Failed to send message. Please try again or email me directly.'
+      );
+    } finally {
       setIsSubmitting(false);
-      setSubmitSuccess(true);
-      setFormData({ name: '', email: '', message: '' });
-
-      setTimeout(() => {
-        setSubmitSuccess(false);
-      }, 5000);
-    }, 1500);
+    }
   };
 
   return (
@@ -55,7 +71,14 @@ const Contact = () => {
               <p className="text-white/70">Thank you for reaching out. I'll get back to you soon.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <>
+              {submitError && (
+                <div className="mb-6 p-4 rounded-lg backdrop-blur-xl bg-red-500/10 border border-red-400/30 flex items-start gap-3">
+                  <AlertCircle size={20} className="text-red-400 flex-shrink-0 mt-0.5" />
+                  <p className="text-red-300 text-sm">{submitError}</p>
+                </div>
+              )}
+              <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Field */}
               <div>
                 <label htmlFor="name" className="flex items-center gap-2 text-white/90 font-medium mb-2">
@@ -129,6 +152,7 @@ const Contact = () => {
                 )}
               </button>
             </form>
+            </>
           )}
         </div>
 

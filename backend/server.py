@@ -1,14 +1,15 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List
 import uuid
 from datetime import datetime, timezone
+from services.email_service import send_contact_email
 
 
 ROOT_DIR = Path(__file__).parent
@@ -65,6 +66,49 @@ async def get_status_checks():
             check['timestamp'] = datetime.fromisoformat(check['timestamp'])
     
     return status_checks
+
+# Contact Form Models
+class ContactRequest(BaseModel):
+    name: str = Field(..., min_length=1, max_length=100)
+    email: EmailStr
+    message: str = Field(..., min_length=1, max_length=5000)
+
+class ContactResponse(BaseModel):
+    success: bool
+    message: str
+
+@api_router.post("/contact", response_model=ContactResponse)
+async def submit_contact_form(contact: ContactRequest):
+    """
+    Handle contact form submission and send email
+    """
+    try:
+        # Send email
+        email_sent = await send_contact_email(
+            name=contact.name,
+            email=contact.email,
+            message=contact.message
+        )
+        
+        if email_sent:
+            logger.info(f"Contact form email sent successfully from {contact.email}")
+            return ContactResponse(
+                success=True,
+                message="Thank you for your message! I'll get back to you soon."
+            )
+        else:
+            logger.error(f"Failed to send contact form email from {contact.email}")
+            raise HTTPException(
+                status_code=500,
+                detail="Failed to send email. Please try again later."
+            )
+            
+    except Exception as e:
+        logger.error(f"Error processing contact form: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail="An error occurred. Please try again later."
+        )
 
 # Include the router in the main app
 app.include_router(api_router)

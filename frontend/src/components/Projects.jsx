@@ -69,7 +69,7 @@ const Projects = () => {
     { title: 'Fintech Systems', data: projectsData.fintech, Icon: Banknote, gradient: 'from-emerald-500/20 to-cyan-500/20' },
     { title: 'Telecom Platforms', data: projectsData.telecom, Icon: Radio, gradient: 'from-blue-500/20 to-purple-500/20' },
     { title: 'AI / Enterprise', data: projectsData.ai_enterprise, Icon: Brain, gradient: 'from-purple-500/20 to-pink-500/20' },
-    { title: 'CRM / Other', data: projectsData.crm, Icon: Car, gradient: 'from-orange-500/20 to-red-500/20' }
+    { title: 'E-Commerce / Auction', data: projectsData.crm, Icon: Car, gradient: 'from-orange-500/20 to-red-500/20' }
   ];
 
   return (
