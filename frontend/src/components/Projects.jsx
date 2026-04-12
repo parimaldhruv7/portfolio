@@ -10,7 +10,9 @@ const ProjectCard = ({ project }) => {
         <div className="relative h-48 overflow-hidden bg-white/5">
           <img
             src={project.image}
-            alt={project.name}
+            alt={`${project.name} - ${project.domain} project screenshot showing ${project.description.substring(0, 100)}`}
+            title={`${project.name} | ${project.domain}`}
+            loading="lazy"
             className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
           />
           {/* Domain Badge on Image */}

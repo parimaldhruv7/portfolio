@@ -21,10 +21,10 @@ const Hero = () => {
               {personalInfo.name}
             </h1>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-white/90 mb-6">
-              {personalInfo.title}
+              {personalInfo.title} | React.js & Node.js Expert
             </h2>
             <p className="text-xl sm:text-2xl text-white/70 max-w-3xl mx-auto">
-              {personalInfo.tagline}
+              {personalInfo.tagline} with expertise in WebSockets, GraphQL, and real-time systems
             </p>
           </div>
 
