@@ -103,6 +103,8 @@ async def submit_contact_form(contact: ContactRequest):
                 detail="Failed to send email. Please try again later."
             )
             
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error processing contact form: {str(e)}")
         raise HTTPException(
