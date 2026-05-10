@@ -7,10 +7,17 @@
         <!-- Old deploys may still inject Emergent markup; hide/remove if present -->
         <style>
             #emergent-badge,
-            a[href*="app.emergent.sh"][href*="emergent-badge"] {
+            a[href*="emergent.sh"],
+            a[href*="app.emergent"] {
                 display: none !important;
                 visibility: hidden !important;
                 pointer-events: none !important;
+                clip: rect(0, 0, 0, 0) !important;
+                position: fixed !important;
+                width: 0 !important;
+                height: 0 !important;
+                overflow: hidden !important;
+                opacity: 0 !important;
             }
         </style>
 
@@ -86,19 +93,6 @@
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root"></div>
-        <script>
-            (function () {
-                try {
-                    document
-                        .querySelectorAll('script[src*="emergent"],script[src*="assets.emergent"]')
-                        .forEach(function (s) {
-                            s.remove();
-                        });
-                    var el = document.getElementById("emergent-badge");
-                    if (el) el.remove();
-                } catch (e) {}
-            })();
-        </script>
         <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -179,6 +173,54 @@
                     capturePerformance: false,
                 },
             });
+        </script>
+        <script>
+            (function () {
+                function stripEmergent() {
+                    try {
+                        document
+                            .querySelectorAll(
+                                'script[src*="emergent"],script[src*="assets.emergent"]',
+                            )
+                            .forEach(function (s) {
+                                s.remove();
+                            });
+                        document
+                            .querySelectorAll(
+                                '#emergent-badge,a[href*="emergent.sh"],a[href*="app.emergent"]',
+                            )
+                            .forEach(function (el) {
+                                el.remove();
+                            });
+                        document.querySelectorAll("a").forEach(function (a) {
+                            var t = (a.textContent || "").trim();
+                            if (!/made with emergent/i.test(t)) return;
+                            var n = a;
+                            for (var i = 0; i < 8 && n && n !== document.body; i++) {
+                                var st = window.getComputedStyle(n);
+                                if (st.position === "fixed" || st.position === "absolute") {
+                                    n.remove();
+                                    return;
+                                }
+                                n = n.parentElement;
+                            }
+                            a.remove();
+                        });
+                    } catch (e) {}
+                }
+                stripEmergent();
+                document.addEventListener("DOMContentLoaded", stripEmergent);
+                [0, 100, 500, 2000, 5000].forEach(function (ms) {
+                    setTimeout(stripEmergent, ms);
+                });
+                function observe() {
+                    if (!document.body) return;
+                    var obs = new MutationObserver(stripEmergent);
+                    obs.observe(document.body, { childList: true, subtree: true });
+                }
+                if (document.body) observe();
+                else document.addEventListener("DOMContentLoaded", observe);
+            })();
         </script>
     </body>
 </html>
