@@ -28,6 +28,14 @@ const Contact = () => {
     setIsSubmitting(true);
     setSubmitError('');
 
+    if (!BACKEND_URL) {
+      setSubmitError(
+        'Contact form is not configured (missing REACT_APP_BACKEND_URL). Rebuild the site with the API URL set.'
+      );
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await axios.post(`${API}/contact`, formData);
       
