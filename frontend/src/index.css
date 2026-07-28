@@ -4,6 +4,7 @@
 
 body {
     margin: 0;
+    background-color: #0a192f;
     font-family:
         'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
         "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -14,12 +15,12 @@ body {
 
 code {
     font-family:
-        source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+        "Roboto Mono", source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 @layer base {
     :root {
-        --background: 0 0% 100%;
+        --background: 216 56% 10%;
         --foreground: 0 0% 3.9%;
         --card: 0 0% 100%;
         --card-foreground: 0 0% 3.9%;
@@ -43,7 +44,7 @@ code {
         --chart-3: 197 37% 24%;
         --chart-4: 43 74% 66%;
         --chart-5: 27 87% 67%;
-        --radius: 0.5rem;
+        --radius: 0.25rem;
     }
     .dark {
         --background: 0 0% 3.9%;
@@ -74,12 +75,76 @@ code {
 }
 
 @layer base {
-    * {
-        @apply border-border;
-    }
     body {
-        @apply bg-background text-foreground;
+        @apply text-slate-light;
     }
+}
+
+/* Numbered section headings, e.g. "01. About Me" */
+.numbered-heading {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 10px 0 40px;
+    width: 100%;
+    white-space: nowrap;
+    font-size: clamp(26px, 5vw, 32px);
+    font-weight: 600;
+    color: #ccd6f6;
+}
+.numbered-heading::before {
+    content: '0' attr(data-number) '.';
+    margin-right: 10px;
+    color: #64ffda;
+    font-family: 'Roboto Mono', monospace;
+    font-size: clamp(16px, 3vw, 20px);
+    font-weight: 400;
+}
+.numbered-heading::after {
+    content: '';
+    display: block;
+    position: relative;
+    top: 2px;
+    width: 100%;
+    max-width: 300px;
+    height: 1px;
+    margin-left: 20px;
+    background-color: #233554;
+}
+@media (max-width: 640px) {
+    .numbered-heading::after {
+        max-width: 120px;
+    }
+}
+
+/* Selection */
+::selection {
+    background-color: #64ffda;
+    color: #0a192f;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #0a192f;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #233554;
+    border-radius: 10px;
+    border: 3px solid #0a192f;
+}
+
+a {
+    color: #64ffda;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+*:focus-visible {
+    outline: 2px dashed #64ffda;
+    outline-offset: 3px;
 }
 
 @layer base {

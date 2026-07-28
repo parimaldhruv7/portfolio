@@ -6,6 +6,8 @@ import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import SideSocial from "./components/SideSocial";
+import SideEmail from "./components/SideEmail";
 
 function stripEmergentFromDom() {
   try {
@@ -43,6 +45,8 @@ function App() {
   return (
     <div className="App">
       <Navbar />
+      <SideSocial />
+      <SideEmail />
       <Hero />
       <Skills />
       <Projects />

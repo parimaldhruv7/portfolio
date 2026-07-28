@@ -176,6 +176,12 @@ export const skills = [
   { name: "Payment Integration", category: "Specialty", level: "Expert" }
 ];
 
+export const socialLinks = [
+  { name: "GitHub", url: "#", icon: "github" },
+  { name: "LinkedIn", url: "#", icon: "linkedin" },
+  { name: "Email", url: "mailto:parimaldhruv7@gmail.com", icon: "mail" }
+];
+
 export const personalInfo = {
   name: "Parimal Srivastav",
   title: "Full Stack Developer",

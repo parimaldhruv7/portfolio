@@ -7,12 +7,27 @@ module.exports = {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+  			mono: ['"Roboto Mono"', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
+  		},
+  		maxWidth: {
+  			'content': '1000px',
+  		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+  			navy: '#0a192f',
+  			'navy-light': '#112240',
+  			'navy-lightest': '#233554',
+  			slate: '#8892b0',
+  			'slate-light': '#a8b2d1',
+  			'slate-lightest': '#ccd6f6',
+  			'off-white': '#e6f1ff',
+  			green: '#64ffda',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
