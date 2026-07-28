@@ -7,7 +7,7 @@ const iconMap = { github: Github, linkedin: Linkedin, mail: Mail };
 const Footer = () => {
   return (
     <footer className="py-10 px-6 text-center">
-      <div className="flex lg:hidden justify-center gap-6 mb-6">
+      <div className="flex justify-center gap-6 mb-6">
         {socialLinks.map(({ name, url, icon }) => {
           const Icon = iconMap[icon];
           return (

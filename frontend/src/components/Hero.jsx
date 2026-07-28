@@ -12,7 +12,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-24 xl:px-32 max-w-4xl"
+      className="min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-24 xl:px-32 max-w-4xl mx-auto w-full"
     >
       <p className="font-mono text-green text-base sm:text-lg mb-5 animate-fade-in-up">
         Hi, my name is
@@ -31,7 +31,7 @@ const Hero = () => {
       <div className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
         <button
           onClick={() => scrollToSection('#projects')}
-          className="inline-block px-8 py-4 rounded border border-green text-green font-mono text-sm hover:bg-green/10 transition-all duration-300"
+          className="inline-block px-8 py-4 rounded border border-green text-green font-mono text-sm transition-all duration-300 hover:bg-green/5 hover:shadow-[5px_5px_0_0_#64ffda] hover:-translate-x-1 hover:-translate-y-1"
         >
           Check out my work!
         </button>

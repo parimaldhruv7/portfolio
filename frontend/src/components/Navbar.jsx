@@ -5,6 +5,7 @@ import Logo from './Logo';
 
 const navLinks = [
   { name: 'About', href: '#about' },
+  { name: 'Experience', href: '#experience' },
   { name: 'Work', href: '#projects' },
   { name: 'Contact', href: '#contact' }
 ];
@@ -12,6 +13,7 @@ const navLinks = [
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeHref, setActiveHref] = useState('#home');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +21,29 @@ const Navbar = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = ['#home', ...navLinks.map((link) => link.href)];
+    const sections = sectionIds
+      .map((href) => document.querySelector(href))
+      .filter(Boolean);
+
+    if (!sections.length) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveHref(`#${entry.target.id}`);
+          }
+        });
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   const scrollToSection = (e, href) => {
@@ -50,24 +75,34 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
           <ol className="flex items-center gap-1 m-0 p-0 list-none counter-reset-item">
-            {navLinks.map((link, i) => (
-              <li key={link.name} className="text-xs">
-                <a
-                  href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
-                  className="px-3 py-2 text-slate-lightest hover:text-green transition-colors duration-200"
-                >
-                  <span className="text-green mr-1">0{i + 1}.</span>
-                  {link.name}
-                </a>
-              </li>
-            ))}
+            {navLinks.map((link, i) => {
+              const isActive = activeHref === link.href;
+              return (
+                <li key={link.name} className="text-xs">
+                  <a
+                    href={link.href}
+                    onClick={(e) => scrollToSection(e, link.href)}
+                    className={`relative px-3 py-2 transition-colors duration-200 ${
+                      isActive ? 'text-green' : 'text-slate-lightest hover:text-green'
+                    }`}
+                  >
+                    <span className="text-green mr-1">0{i + 1}.</span>
+                    {link.name}
+                    <span
+                      className={`absolute left-3 right-3 -bottom-0.5 h-px bg-green origin-left transition-transform duration-300 ${
+                        isActive ? 'scale-x-100' : 'scale-x-0'
+                      }`}
+                    />
+                  </a>
+                </li>
+              );
+            })}
           </ol>
           <a
             href={personalInfo.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-4 px-4 py-2 text-xs rounded border border-green text-green hover:bg-green/10 transition-all duration-300"
+            className="ml-4 px-4 py-2 text-xs rounded border border-green text-green transition-all duration-300 hover:bg-green/5 hover:shadow-[4px_4px_0_0_#64ffda] hover:-translate-x-1 hover:-translate-y-1"
           >
             Resume
           </a>
@@ -90,25 +125,30 @@ const Navbar = () => {
         }`}
       >
         <ol className="flex flex-col items-center gap-6 m-0 p-0 list-none font-mono">
-          {navLinks.map((link, i) => (
-            <li key={link.name} className="text-lg">
-              <a
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className="text-slate-lightest hover:text-green transition-colors duration-200"
-              >
-                <span className="text-green mr-1 text-sm">0{i + 1}.</span>
-                {link.name}
-              </a>
-            </li>
-          ))}
+          {navLinks.map((link, i) => {
+            const isActive = activeHref === link.href;
+            return (
+              <li key={link.name} className="text-lg">
+                <a
+                  href={link.href}
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  className={`transition-colors duration-200 ${
+                    isActive ? 'text-green' : 'text-slate-lightest hover:text-green'
+                  }`}
+                >
+                  <span className="text-green mr-1 text-sm">0{i + 1}.</span>
+                  {link.name}
+                </a>
+              </li>
+            );
+          })}
         </ol>
         <a
           href={personalInfo.resumeUrl}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => setIsMobileMenuOpen(false)}
-          className="px-6 py-3 text-sm rounded border border-green text-green hover:bg-green/10 transition-all duration-300 font-mono"
+          className="px-6 py-3 text-sm rounded border border-green text-green transition-all duration-300 font-mono hover:bg-green/5 hover:shadow-[4px_4px_0_0_#64ffda] hover:-translate-x-1 hover:-translate-y-1"
         >
           Resume
         </a>

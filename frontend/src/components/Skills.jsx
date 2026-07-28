@@ -1,6 +1,7 @@
 import React from 'react';
 import { skills, personalInfo } from '../data/mock';
 import Logo from './Logo';
+import useScrollReveal from '../hooks/useScrollReveal';
 
 const featuredSkills = skills
   .filter((s) => s.level === 'Expert')
@@ -8,13 +9,18 @@ const featuredSkills = skills
   .slice(0, 10);
 
 const About = () => {
+  const [ref, isRevealed] = useScrollReveal();
+
   return (
-    <section id="about" className="py-24 px-6 sm:px-10 lg:px-24 xl:px-32 max-w-4xl">
+    <section id="about" className="py-24 px-6 sm:px-10 lg:px-24 xl:px-32 max-w-4xl mx-auto">
       <h2 className="numbered-heading" data-number="1">
         About Me
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
+      <div
+        ref={ref}
+        className={`reveal-on-scroll ${isRevealed ? 'is-revealed' : ''} grid grid-cols-1 md:grid-cols-5 gap-10`}
+      >
         <div className="md:col-span-3 space-y-4 text-slate leading-relaxed">
           <p>
             Hello! I'm <span className="text-slate-lightest font-medium">{personalInfo.name}</span>, a{' '}

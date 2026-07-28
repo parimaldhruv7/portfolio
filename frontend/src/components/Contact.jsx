@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { personalInfo } from '../data/mock';
 import axios from 'axios';
+import useScrollReveal from '../hooks/useScrollReveal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -10,6 +11,7 @@ const inputClasses =
   'w-full px-4 py-3 bg-navy-light border border-navy-lightest rounded text-slate-lightest placeholder-slate/50 focus:outline-none focus:border-green transition-colors duration-300 font-mono text-sm';
 
 const Contact = () => {
+  const [ref, isRevealed] = useScrollReveal();
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -49,8 +51,12 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-6 sm:px-10 lg:px-24 xl:px-32 max-w-2xl text-center mx-auto">
-      <p className="font-mono text-green mb-4">03. What's Next?</p>
+    <section
+      id="contact"
+      ref={ref}
+      className={`reveal-on-scroll ${isRevealed ? 'is-revealed' : ''} py-24 px-6 sm:px-10 lg:px-24 xl:px-32 max-w-2xl text-center mx-auto`}
+    >
+      <p className="font-mono text-green mb-4">04. What's Next?</p>
       <h2 className="text-4xl sm:text-5xl font-bold text-slate-lightest mb-6">Get In Touch</h2>
       <p className="text-slate mb-12 max-w-md mx-auto">
         Have a project in mind or an opportunity to discuss? My inbox is always open — I'll do my
@@ -122,7 +128,7 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded border border-green text-green font-mono text-sm hover:bg-green/10 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded border border-green text-green font-mono text-sm transition-all duration-300 hover:bg-green/5 hover:shadow-[5px_5px_0_0_#64ffda] hover:-translate-x-1 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:translate-x-0 disabled:hover:translate-y-0"
                 >
                   {isSubmitting ? (
                     <>
