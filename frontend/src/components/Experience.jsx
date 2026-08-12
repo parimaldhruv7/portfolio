@@ -52,9 +52,11 @@ const Experience = () => {
 
         <div className="sm:pl-8 pt-6 sm:pt-0 flex-1">
           <div
+            key={activeTab}
             id={`panel-${activeTab}`}
             role="tabpanel"
             aria-labelledby={`tab-${activeTab}`}
+            className="tab-fade-in"
           >
             <h3 className="text-xl font-semibold text-slate-lightest mb-1">
               {active.role} <span className="text-green">@ {active.company}</span>
@@ -62,8 +64,13 @@ const Experience = () => {
             <p className="font-mono text-xs text-slate-light mb-6">{active.range}</p>
             <ul className="space-y-3 m-0 p-0 list-none">
               {active.bullets.map((bullet, i) => (
-                <li key={i} className="relative pl-6 text-slate leading-relaxed">
-                  <span className="absolute left-0 text-green">▹</span>
+                <li
+                  key={i}
+                  className="group relative pl-6 text-slate leading-relaxed transition-colors duration-200 hover:text-slate-light"
+                >
+                  <span className="absolute left-0 transition-transform duration-200 text-green group-hover:translate-x-1">
+                    ▹
+                  </span>
                   {bullet}
                 </li>
               ))}

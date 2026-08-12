@@ -52,7 +52,9 @@ const ProjectCard = ({ project, index = 0 }) => {
 
         <ul className="flex flex-wrap gap-x-3 gap-y-1 mt-auto pt-4 m-0 p-0 list-none font-mono text-xs text-slate">
           {project.techStack.map((tech) => (
-            <li key={tech}>{tech}</li>
+            <li key={tech} className="transition-colors duration-200 hover:text-green">
+              {tech}
+            </li>
           ))}
         </ul>
       </div>

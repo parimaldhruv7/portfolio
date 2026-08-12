@@ -27,6 +27,59 @@ html {
   opacity: 0;
 }
 
+/* Custom cursor (dot + trailing ring) */
+body.custom-cursor-enabled,
+body.custom-cursor-enabled a,
+body.custom-cursor-enabled button {
+  cursor: none;
+}
+
+.custom-cursor-dot,
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.2s ease;
+}
+
+.custom-cursor-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #64ffda;
+}
+
+.custom-cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(100, 255, 218, 0.6);
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.custom-cursor-ring.is-active {
+  width: 54px;
+  height: 54px;
+  background-color: rgba(100, 255, 218, 0.1);
+  border-color: #64ffda;
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tab-fade-in {
+  animation: tabFadeIn 0.35s ease-out;
+}
+
 /* Scroll-reveal utility (see useScrollReveal hook) */
 .reveal-on-scroll {
   opacity: 0;
@@ -42,6 +95,9 @@ html {
   .animate-fade-in-up {
     animation: none !important;
     opacity: 1 !important;
+  }
+  .tab-fade-in {
+    animation: none !important;
   }
   .reveal-on-scroll {
     opacity: 1 !important;

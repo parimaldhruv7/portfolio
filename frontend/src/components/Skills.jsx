@@ -40,8 +40,13 @@ const About = () => {
 
           <ul className="grid grid-cols-2 gap-x-4 gap-y-2 mt-4 p-0 list-none font-mono text-sm">
             {featuredSkills.map((skill) => (
-              <li key={skill} className="relative pl-5 text-slate">
-                <span className="absolute left-0 text-green">▹</span>
+              <li
+                key={skill}
+                className="group relative pl-5 text-slate transition-colors duration-200 hover:text-slate-lightest"
+              >
+                <span className="absolute left-0 transition-transform duration-200 text-green group-hover:translate-x-1">
+                  ▹
+                </span>
                 {skill}
               </li>
             ))}
